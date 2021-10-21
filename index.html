@@ -1,0 +1,34 @@
+<!-- figures out the type of document that is going to be interpreted/read/rendered by the browser - Doctype html is specific to html 5 -->
+<!DOCTYPE html>
+<!-- opens html tag -->
+<html>
+    <!-- opens the head of the document -->
+    <head>
+        <!-- determines the character set for the document; a just-in-case line -->
+        <meta charset="utf-8">
+        <!-- defines the name of the tab when opened in browser -->
+        <title>My first web page</title>
+        <!-- closes the head tag -->
+        <link href="css/myStyle.css" rel="stylesheet">
+        <script src="js/myFirstJavascript.js"></script>
+        
+    </head>
+    <!-- opens the body of the document, the stuff you actually see on the webpage... -->
+    <body onload="main()">
+        <input type="text" placeholder="Type " id="inputID">
+        <!-- defines that we want text, i think letters, as inputs; -->
+        <button type="button" onclick="getInputValue();">Get Value</button>
+        <!-- defines the type of input we want to send input to processor, that being the mouse click on created button - Get Value -->
+        <canvas id="canvas" width="150" height="150"></canvas>
+        <!-- canvas is determining the height and width of inserted picture...? -->
+        <!-- script allows you to put javascript into the tag, and  -->
+        <!-- this is the heading; h1 means that the text is going to be bigger and bolder, h2 will be smaller, etc. -->
+        <h1>My first web page!!!</h1>
+        <!-- can write a paragraph with this tag -->
+        <p>Hello world...my name is Phrancis</p>
+        <!-- img tag links image that is located in some folder; has no closing tag - looks for the image source and afterward goes to the firefox icon bc thats the image linked -->
+        <a href="https://bcp.org"><img width="1000px" src="images/Rodeo-Expanded.jpg" alt="My test image"></a>
+
+    </body>
+</html>
+<!-- closing tags -->

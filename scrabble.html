@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<!-- figures out the type of document that is going to be interpreted/read/rendered 
+    by the browser - Doctype html is specific to html 5 -->
+<html>
+    <!-- opens html tag,opens body of document, stuff you actually see on webpage... -->
+  <head>
+      <!-- determines the character set for the document; a just-in-case line -->
+    <meta charset="utf-8">
+    <!-- closes the head tag -->
+    <title>Scrabble</title>
+    <!-- referencing scrabble JS file -->
+  </head>
+  <body>
+    <input type="text" placeholder="Type " id="inputId">
+    <!-- defining type of input to be mainly text -->
+    <button type="button" onclick="doSomething();">Get Value</button>
+     <!-- determining that pointing, or clicking is sending input through processor, get value labels
+    button we press -->
+    <p id="display">Scrabble</p>
+    <!-- defines output that results after pressing button -->
+  </body>
+  <script src="js/scrabbleInput.js"></script>
+</html>
+<!-- ends html tag -->
