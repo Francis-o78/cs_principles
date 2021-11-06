@@ -1,90 +1,99 @@
-
-// Objective: take a message from a user and encrypt it, use the cypher decrypt it
-// adding pop up alert for the user to give some sort of input
-
+// Comment pseudocode up here 
+// Objective: take a message from a user and encrypt it
+// Then using the cypher decrypt it
 /* 
-1. Get input from user
-
+1. get input from user
+2. Encrypt the message
+3. Take the encrypted message and put it back in the word boz
+4. Decrypt the message
 */
 
-// global variables are at the top, defining the arrays of encryption, answer key, type of input wanted, and points assigned.
-let POINTS = [1, 3, 3, 2, 1, 4, 2, 4, 1, 8, 5, 1, 3, 1, 1, 3, 10, 1, 1, 1, 1, 4, 4, 8, 4, 10];
-let Letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "\n"];
-let encryption = ["$", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "\n"];
+// global variables assigned at the top such as symbols and letters
+let Symbols = ["!","@","#","<","*",")", ":", ";","&", "%","$","_","-", "{", "}", "|", "^", "`", "]", "[", ".", ",", "+", "=", "'", "~", "?"];
+let Letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " "];
 let player1score = 0;
 let player2score = 0;
 
-// pushing and pulling things into/out of an array that is at the moment empty
-let PushedThings = "WHATS UP I can push things into this array";
-let myArray = [];
-myArray.push(PushedThings);
-console.log("I have successfully pushed something into the array " + myArray);
-
-// creating utility functions for string input and checking if input is uppercase or lowercase
-function isupper(str) {
-  return str === str.toUpperCase();
+// functions to determine utility functions of upper/lower case
+// establishing function to see if letter is Uppercase.
+function isupper(str){
+    return str === str.toUpperCase();
+}
+// lowercase function
+function islower(str){
+    return str === str.toLowerCase();
 }
 
-// check if is lowercase, different than above function, which checked if input is uppercasee
-function islower(str) {
-  return str === str.toLowerCase();
+// associates the input with a value assigned in the POINTS array and gives a number value as a points assignation
+function getPoints(letter) {
+    let index = Letters.indexOf(letter);
+    return Symbols[index]; 
+}
+// associates the input given with a symbol defined under te SYMBOLS array; returns a word as output based on the symbol associated with input.
+function getLetters(symbol) {
+    let index = Symbols.indexOf(symbol);
+    return Letters[index];
 }
 
-// function that gives back points by connecting index and type of  letter with correct amount of POINTS based on POINTS array above
-function getPoints(letter){
-  let index = Letters.indexOf(letter);
-  return POINTS[index];
-}
-
-// function that analyzes the type of input given and associates POINTS based on conditions stated in for loop
-function computefinalScore(word){
+function computeScore(word)
+{
     let score = 0;
     for (i = 0, n = word.length; i < n; i++){
+    // determines score = associates letter of input given with POINTS array and giving score
         // if (islower(word[i])){
-        //   console.log(word[i] + "this is lower case");
+        //     console.log(word[i] + "this is lower case");
         // }
         // if (isupper(word[i])){
-        //   console.log(word[i] + " is upper case");
+        //     console.log(word[i] + "this is upper case");
         // }
-        console.log("letter is " + (word[i]));
+        console.log("letter is" + (word[i]));
         console.log("letter score is " + getPoints(word[i].toLowerCase()));
-        score += getPoints(word[i].toLowerCase());
-        console.log("final score here " + score);
-        // draws out word prompts and setences that come before stating the final score from functions comptefinalScore and getPOINTS
+        score += getPoints(word[i].toLowerCase());  
+        console.log("final score is" + score);
     }
     return score;
 }
 
-computefinalScore("hello");
 
 
-// SCOPE>>>>>>>>>>>
 
-function getInputValue() {
-    // this function selects the input element and get its value based on arrays above.
-    return document.getElementById("inputId").value;
-    // Displaying the value inputted and what results through the string of letters given
-  }
+// leveraging for loop to associate symbol defined in global array at top to word based on input
 
-function encrypt(word){
-  alert(word);
-  // basic encryption algorithm is happening here, changes input given into associated symbols specified in above arrays
+function computeWord(symbol)
+{
+    let word = 0;
+    for (i=0, n = symbol.length; i < n; i++){
+        console.log("letter score is " + getLetters(symbol[i]));
+        word += getLetters(symbol[i]);  
+        console.log("final score is" + word);
+    }
+    return word;
 }
 
-// encryption function is changing given input based on encryption array, send alert on browser exclaiming final encryption based on input. 
-function doSomething(){
-    let encryptedValue = encrypt(getInputValue())
-    alert("Encrypted value is " + encryptedValue);
-    output(encryptedValue);
-  }
 
-  let eMessage = "secret message";
-  // denotes the encryption as secret, can decrypt using above array as well
+// // determines score associated with given word as input
 
-  //accesses element on page and alter it dynamically...?
-  function output(content){
-    document.getElementById("display1").innerHTML = content;
-    document.getElementById("display2").innerHTML = eMsg;
-    document.getElementById("display3").innerHTML = "hello";
-  }
+computeScore("hello");
 
+// scope; inputVal cannot escape getInputValue
+ 
+// chooses inputID value
+function getInputValue(){
+    return document.getElementById("inputId").value;
+}
+// computeScore processes input of letters/words given and gives out value as score, points earned 
+function encrypt(){
+    let score = computeScore(getInputValue())
+    output("The encrypted message is ... drumroll please:  " + score );
+}
+
+// decrypt function; computeWord returns number value for word given and reassociates numbers gained through encrypt function and...decrypts
+function decrypt(){
+    let word = computeWord(getInputValue())
+    output("This is the decrypted message, congrats! " + word);
+}
+
+// creates the text box, insert input into it, get output below it
+function output(content){    
+    document.getElementById("display").innerHTML = content;
+}
