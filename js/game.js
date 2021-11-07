@@ -1,13 +1,14 @@
-// global variables
+// global variables are defined at top here
 let canvas;
 let ctx;
 let WIDTH = 600;
 let HEIGHT = 400;
 
-// get user input from keyboard
+// get user input from keyboard; establishing ideally keystrokes 's' and 'w'
 let keysDown = {};
 let keysUp = {};
 
+// defines area where boxes are traveling, basically the arena of the game
 let gamePlan = `
 ......................
 ..#................#..
@@ -22,9 +23,13 @@ let gamePlan = `
 
 
 function buildLevel(plan, width) {
-    // setup arrays to hold information from gameplan...
+    // function that makes the grid for which boxes to travel on
+    // setup arrays to hold information from gameplan
     let newRow = [];
     let newGrid = [];
+
+    // for loop that defines conditions for moving boxes based on input
+    // also specifies that if box is moved to new row on grid and returns new length of the array once moved
 
     for (i of plan) {
 
@@ -42,14 +47,16 @@ function buildLevel(plan, width) {
     console.log(newRow);
     return newGrid;
 }
-
+//above if statements print the variables defined - newgrid, newRow, etc. to establish movement of box (== 0)
 
 addEventListener("keydown", function (event) {
     keysDown[event.key] = true;
     console.log("key down is " + keysDown[event.key]);
     console.log(keysDown);
 }, false);
+//basically specifies the type of event to pay attention to (that being the movement of boxes downward) and defines what happens when the box moves in this direction
 
+//basically specifies the type of event to pay attention to (that being the movement of boxes upward) and defines what happens when the box moves in this direction
 addEventListener("keyup", function (event) {
     // keysUp[event.key] = true;
     delete keysDown[event.key];
@@ -57,9 +64,9 @@ addEventListener("keyup", function (event) {
     console.log(keysUp);
 }, false);
 
-// here we use init (short for initialize) to setup the canvas and context
-// this function will be called in the HTML document in body onload = ""
-// we also append the body with a new canvas element
+// initialization function = setup canvas and context
+// function function referenced at HTML document in body onload = ""
+// append specific content: used to put specific content within specified elements.
 function init() {
     canvas = document.createElement("canvas");
     canvas.width = WIDTH;
@@ -69,6 +76,9 @@ function init() {
     document.body.appendChild(canvas);
     gameLoop();
 }
+// defines width height variables and loops game to allow for constant movement; also gives context to object at play in init function ()
+//get Context defines a returnable-object that specific characteristics of width, color, height, etc.
+
 
 class Square {
     constructor(id, x, y, speed, w, h, color) {
@@ -80,6 +90,8 @@ class Square {
         this.h = h;
         this.color = color;
     }
+//defines parameters for squares on page; specific variables like movement, color, height and width
+    
     create(x, y, speed, w, h, color) {
         return new Square(x, y, speed, w, h, color);
     }
@@ -97,6 +109,7 @@ class Square {
         ctx.fillRect(this.x, this.y, this.w, this.h);
     };
 }
+//update takes the input and changes the hash of the object at hand - the update function returns the index of the input that is given
 
 class Player extends Square {
     constructor(id, x, y, speed, w, h, color, hitpoints) {
@@ -110,6 +123,7 @@ class Player extends Square {
         this.color = color;
         this.hitpoints = hitpoints;
         // console.log(this.hitpoints);
+        // defines Player class, allowing different inputs and characteristics of Square class characters.
     }
     update() {
         if ('w' in keysDown) {
@@ -124,6 +138,7 @@ class Player extends Square {
         if ('d' in keysDown) {
             this.x += this.speed;
         }
+        //defines key characters for controlling square
 
         // this.y += Math.random()*5*this.speed;
         // console.log(this.x);
@@ -147,7 +162,7 @@ function readLevel() {
         console.log(i + " will be the y value...");
         /* checks to see if we hit a newline;
         if not, set variable 'type' to the current level character
-        in hte object we created called levelChars
+        in the object we created called levelChars
         */
         if (i != "\n") {
             let type = levelChars[i];
@@ -159,9 +174,7 @@ function readLevel() {
                 startActors.push(type);
                 console.log('string found');
             }
-            /* if it is not a string, it will be a class
-            as we've written it; if it is a class, push a 
-            newly created object into the startActors, 
+            /* if it is not a string, it will be a class as we've written it; if it is a class, push a newly created object into the startActors, 
             with all necessary arguments or values.
             In this case, x,y,w,h,color
             
@@ -173,17 +186,19 @@ function readLevel() {
         }
     }
     console.log(startActors);
+    // for loops and if statements  defining specific conditions for current level of game; 
 }
 
-readLevel();
+readLevel()
 
 // instantiations...
-let player1 = new Player("Me", WIDTH / 2, HEIGHT / 2, 1, 40, 40, 'rgb(100, 100, 100)', 100);
-let oneSquare = new Square("Bob", 10, 10, 1, 50, 50, 'rgb(200, 100, 200)');
-let twoSquare = new Square("Chuck", 60, 60, 5, 100, 100, 'rgb(200, 200, 0)');
-let threeSquare = new Square("Bill", 70, 70, 3, 25, 25, 'rgb(100, 100, 222)');
+let player1 = new Player("Me", WIDTH / 2, HEIGHT / 2, 1, 40, 40, 'rgb(300, 50, 100)', 100);
+let oneSquare = new Square("Harry", 10, 10, 1, 50, 50, 'rgb(400, 60, 200)');
+let twoSquare = new Square("yeezus", 60, 60, 5, 100, 100, 'rgb(200, 200, 0)');
+let threeSquare = new Square("boppa", 70, 70, 3, 25, 25, 'rgb(100, 100, 300)');
 
 let allSprites = [oneSquare, twoSquare, threeSquare, player1];
+//specifies various actors in game, different squares and assigning various values and locations to them
 
 
 function update() {
@@ -195,12 +210,13 @@ function update() {
     // oneSquare.update();
     // twoSquare.update();
 }
-// we now have just the drawing commands in the function draw
+// draw function gives context for rectangle dimensions and characteristics
 function draw() {
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
     for (i of allSprites) {
         // console.log(i);
         i.draw();
+        // i draw...?
     }
 }
 // here we have a big leap!
@@ -217,4 +233,5 @@ let gameLoop = function () {
     update();
     draw();
     window.requestAnimationFrame(gameLoop);
+    // loops game to allow continued play; asks browser to redraw image after input is given (requestAnimationFramez)
 }
