@@ -29,7 +29,8 @@ function buildLevel(plan, width) {
     let newGrid = [];
 
     // for loop that defines conditions for moving boxes based on input
-    // also specifies that if box is moved to new row on grid and returns new length of the array once moved
+    // also specifies that if box is moved to new row on grid and 
+    // returns new length of the array once moved
 
     for (i of plan) {
 
